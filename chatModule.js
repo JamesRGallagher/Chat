@@ -1,12 +1,12 @@
 /**
  * chatModule 
- * in theory contains everything there is to 
- * know about a chat.
+ * Contains everything there is to 
+ * know about a "chat".
  * maintains a list of users in the room
  * and info about them
+ * Follows revealing module pattern :)
  */
-var chatModule = (function() {
-    console.log('being created!')
+var ChatModule = (function() {    
     var myId;
     var cache = aek.cache()
     //holds the date of the last message in the screen
@@ -19,13 +19,13 @@ var chatModule = (function() {
     var users = [];
     //Debug - 1 yes. Decides if we should log.
     var debug = 1;
-
-    var me;
-
+    //Me as a user.
+    var me = search(myId, users);
+    //Returns me
     var getMe = function() {
-        return search(myId, users);
+        return me;
     }
-
+    //Gets a list of all the blocked users
     var getBlockedUsers = function() {
         if (cache.get('blockedUsers')) {
             return cache.get('blockedUsers')
@@ -33,9 +33,8 @@ var chatModule = (function() {
             return [];
         }
     }
-
+    //Block a user
     var blockUser = function(id) {
-        console.log('blocking')
         if (cache.get('blockedUsers')) {
             var blockedUsers = cache.get('blockedUsers')
             blockedUsers.push(id)
@@ -72,7 +71,6 @@ var chatModule = (function() {
             users.push(user)
         }
         document.getElementById('usersInRoom').innerHTML = users.length;
-
         return users;
     }
     var getChatName = function() {

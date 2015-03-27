@@ -50,7 +50,7 @@ $("textarea").keyup(function(e) {
     */   
     function infolog(msg){
       
-    if(chatModule.getDebug()){
+    if(ChatModule.getDebug()){
          console.log(msg)
       }
     }
@@ -70,9 +70,9 @@ $("textarea").keyup(function(e) {
        $('#getOld').remove()
        $('#getOldHolder').append('<img style="display: block; margin:0 auto; width:30px; height:30px;"id="oldSpinner" src="https://portal.ombiel.co.uk/assets/LancasterStudents/AET_Files/712.GIF" />')
        console.log(chat.server.getOldMessages)
-       console.log(chatModule.getChatName())
-         console.log(chatModule.getLastMessageID())
-       chat.server.getOldMessagesByID(chatModule.getChatName(), chatModule.getLastMessageID())
+       console.log(ChatModule.getChatName())
+         console.log(ChatModule.getLastMessageID())
+       chat.server.getOldMessagesByID(ChatModule.getChatName(), ChatModule.getLastMessageID())
        infolog("called")
       }
       
@@ -166,9 +166,9 @@ $("textarea").keyup(function(e) {
     */ 
     function initialiseConnection(){
       infolog("initialising connection...")
-      $.connection(chatModule.getConnectionURL())
+      $.connection(ChatModule.getConnectionURL())
       chat = $.connection.chat; //initialise the chat connection
-      $.connection.hub.url = chatModule.getConnectionURL();     
+      $.connection.hub.url = ChatModule.getConnectionURL();     
         infolog('connection.hub.start')   
         $.connection.hub.qs = {
             "token": document.getElementById('token').value
@@ -180,12 +180,12 @@ $("textarea").keyup(function(e) {
          infolog('connected...')
          console.log("Going to get chat name")
          $("#chatWindow").val("Connected \n");
-         chat.state.currentChatRoom = chatModule.getChatName();
+         chat.state.currentChatRoom = ChatModule.getChatName();
           console.log(":)")
                 console.log(chat.state.currentChatRoom)
          var name = $("#txtNickName").val();
          
-         chat.server.joinRoom(chatModule.getChatName())
+         chat.server.joinRoom(ChatModule.getChatName())
          .done(function (e) {
                 infolog('joined room...')
          })
@@ -231,7 +231,7 @@ $("textarea").keyup(function(e) {
         //Define submit message behaviour
         $("#submitmsg").click(function () {
             if ($("#messageTextBox").val()) {  
-               chat.server.send($("#messageTextBox").val(), chatModule.getChatName())
+               chat.server.send($("#messageTextBox").val(), ChatModule.getChatName())
                  if(filter){ 
                     $("#messageTextBox").val(filter+":")
                  } else {
@@ -250,7 +250,7 @@ $("textarea").keyup(function(e) {
             //console.log('clicked')
             //$('#getOld').remove()
             //infolog(chat.server.getOldMessages)
-            //chat.server.getOldMessages(chatModule.getChatName(), chatModule.getLastMessageDate())
+            //chat.server.getOldMessages(ChatModule.getChatName(), ChatModule.getLastMessageDate())
             //infolog("called")
     //   })
     }
@@ -266,7 +266,7 @@ $("textarea").keyup(function(e) {
       //Server calls us with the name of a chatroom
       chat.client.addChatRoom = function (chatRoom) { 
          //if the callback chatroom is the current chatroom,
-            if (chatRoom == chatModule.getChatName()) { 
+            if (chatRoom == ChatModule.getChatName()) { 
                 //TODO: Handle UI name
             } else {
                 //TODO: Handle UI name
@@ -276,14 +276,14 @@ $("textarea").keyup(function(e) {
         //Server calls when a new user is connected
         chat.client.onNewUserConnected = function (room, user) {
               infolog('New User Connected')
-              chatModule.addUserToRoom(user);
+              ChatModule.addUserToRoom(user);
         }     
 
         //Server calls when a new message is added
         chat.client.addMessage = function (room, msgDetail) {
             infolog("------ Message Details --------")
             infolog(msgDetail)
-            addMessageToChatWindow(msgDetail.Message, msgDetail.DisplayName, msgDetail.FromID, msgDetail.Id, chatModule.getChatName(), "addMessage",msgDetail.MessageTime)
+            addMessageToChatWindow(msgDetail.Message, msgDetail.DisplayName, msgDetail.FromID, msgDetail.Id, ChatModule.getChatName(), "addMessage",msgDetail.MessageTime)
             
         }
 
@@ -293,7 +293,7 @@ $("textarea").keyup(function(e) {
             infolog(messagesInRoom)
              
             for (var i = 0; i < messagesInRoom.length; i++) {
-                chatModule.setLastMessageID(messagesInRoom[messagesInRoom.length-1].Id)
+                ChatModule.setLastMessageID(messagesInRoom[messagesInRoom.length-1].Id)
                  
                 addMessageToChatWindow(messagesInRoom[i].Message, messagesInRoom[i].DisplayName, messagesInRoom[i].FromID, messagesInRoom[i].Id, chat, "onOldMessages",messagesInRoom[i].MessageTime);
             }    
@@ -308,7 +308,7 @@ $("textarea").keyup(function(e) {
         //Server calls when we are connected to the room
         chat.client.onRoomConnected = function (id, name, usersInRoom, messagesInRoom) {
             $(window).bind('beforeunload', function (e) {
-                chat.server.leaveRoom(chatModule.getChatName())
+                chat.server.leaveRoom(ChatModule.getChatName())
             });
             //$('#usersInRoom').html(usersInRoom.length + " users in the room")
             infolog("--------Messages In Room:-------")
@@ -322,7 +322,7 @@ $("textarea").keyup(function(e) {
               }
             for (var i = 0; i < usersInRoom.length; i++) {
                 infolog('Adding User')
-                chatModule.addUserToRoom(usersInRoom[i])
+                ChatModule.addUserToRoom(usersInRoom[i])
             }
             if(messagesInRoom.length == 0){
                if ($('#spinner').length) {
@@ -332,14 +332,14 @@ $("textarea").keyup(function(e) {
             for (var i = 0; i < messagesInRoom.length; i++) {
                // alert("adding message from "+messagesInRoom[i so the ideaWell].DisplayName+" sayying "+messagesInRoom[i].Message)
                 addMessageToChatWindow(messagesInRoom[i].Message, messagesInRoom[i].DisplayName, messagesInRoom[i].FromID, messagesInRoom[i].Id, chat, "onRoomConnected",messagesInRoom[i].MessageTime);
-                chatModule.setLastMessageID(messagesInRoom[0].Id)
+                ChatModule.setLastMessageID(messagesInRoom[0].Id)
             }
-            var me = chatModule.getMe();
+            var me = ChatModule.getMe();
            console.log('EMEMEMEMMMEMEMEMMEM',me)
             
          /*   if(!me.Bio || !me.DisplayName){
                 //alert('no b')
-                 var url = 'campusm://loadaek?toolbar=AEK7772&_action=chat&room='+chatModule.getChatName()+'&return=AEK6273' 
+                 var url = 'campusm://loadaek?toolbar=AEK7772&_action=chat&room='+ChatModule.getChatName()+'&return=AEK6273' 
         var page;
        try {
            page = window.parent.CampusM.page;
@@ -356,7 +356,7 @@ $("textarea").keyup(function(e) {
         //Server calls to tell us what room we are in
         chat.client.roomsIAmIn = function (id, rooms) {//This gives us the USER id and a list of rooms they are in.
             infolog('chat.client.roomsIAmIn')
-            chatModule.setMyId(id);
+            ChatModule.setMyId(id);
             infolog(rooms)
             for (var i = 0; i < rooms.length; i++) { //for each room the current user is in, append it to the navigation drawer
                 $("#menuList").append('<li><a class="navItem" href="#">' + rooms[i] + '</a></li>');
@@ -487,7 +487,7 @@ $("textarea").keyup(function(e) {
       }
    }
    function createModal(userId,messageID,from,uid) {
-      var user = search(userId,chatModule.getUsersInRoom())
+      var user = search(userId,ChatModule.getUsersInRoom())
       console.log(user.Bio)
       var bio = user.Bio || "This user does not currently have a bio :("
       var anchorString = '<a style="display:none;" href="#modal' + userId + '" rel="' + messageID + '"></a>';
@@ -495,7 +495,7 @@ $("textarea").keyup(function(e) {
       //if the modal for this user does not already exist
       if (!$('#modal' + userId).length) {
          //build it 
-         var modalWindow = '<div class="modalWindow" id="modal' + userId + '"><div class="canvasHolder" id = "canvasHolder' + userId + '"><canvas id="modalCanv" class="modalCanv" ></canvas></div><br> <b>Name:</b>' + ' ' + from + ' <br><br>'+bio+'<br><br><input type="button" value="Block this user" onclick="chatModule.blockUser('+userId+')"> </div>';
+         var modalWindow = '<div class="modalWindow" id="modal' + userId + '"><div class="canvasHolder" id = "canvasHolder' + userId + '"><canvas id="modalCanv" class="modalCanv" ></canvas></div><br> <b>Name:</b>' + ' ' + from + ' <br><br>'+bio+'<br><br><input type="button" value="Block this user" onclick="ChatModule.blockUser('+userId+')"> </div>';
          //and append it!
          $(".commentArea").append(modalWindow);
             
@@ -509,7 +509,7 @@ $("textarea").keyup(function(e) {
 
       
        function isBlocked(id){
-          arr = chatModule.getBlockedUsers();
+          arr = ChatModule.getBlockedUsers();
            for(i=0;i<arr.length;i++){
                if(arr[i] == id){
                  return true;
@@ -567,7 +567,7 @@ $("textarea").keyup(function(e) {
       
     
         console.log('adding message')
-         var fromUserObj = search(id, chatModule.getUsersInRoom());
+         var fromUserObj = search(id, ChatModule.getUsersInRoom());
 
         console.log('user obj')
         console.log(fromUserObj)
@@ -589,7 +589,7 @@ from = "Chat User";
             $(".commentArea").append('<span id="getOldHolder" style="width:100%"><button id="getOld" onclick="clickedOldMessages()">Get Older</button></span>')
         }   
         //If message from this user
-        if (id == chatModule.getMyId()) {       
+        if (id == ChatModule.getMyId()) {       
          //If first load or new message
          if (type != "onOldMessages") {         
                           appendRightMessage(messageID,msg,date,hasTag);
@@ -630,14 +630,14 @@ from = "Chat User";
         //if the messages aren't being displayed onload (it's a new message)
         console.log(';;')
         console.log(from)
-        console.log(chatModule.getMyId())
-        if (type != "onRoomConnected" && type != "onOldMessages" && id != chatModule.getMyId() ) {
+        console.log(ChatModule.getMyId())
+        if (type != "onRoomConnected" && type != "onOldMessages" && id != ChatModule.getMyId() ) {
 
         
             
             //document.getElementById('base').scrollIntoView(false);
             
-            if (id != chatModule.getMyId) {
+            if (id != ChatModule.getMyId) {
                 
                 toastr.options.onclick = function () {
                   //  document.getElementById('base').scrollIntoView(false);
@@ -699,12 +699,12 @@ $.connection.hub.reconnected(function() {
      
     function displayMyPic(){
 
-        console.log(chatModule.getMe())
+        console.log(ChatModule.getMe())
         if(document.getElementById('myPicture')){
-        document.getElementById('myPicture').style.backgroundImage = "url(data:image/gif;base64,"+chatModule.getMe().Photo64 + ")";
+        document.getElementById('myPicture').style.backgroundImage = "url(data:image/gif;base64,"+ChatModule.getMe().Photo64 + ")";
         }
        if(document.getElementById('drawerName')){
-          document.getElementById('drawerName').innerHTML = chatModule.getMe().DisplayName + '<br> <h4>'+chatModule.getMe().Bio+'</h4>' ;
+          document.getElementById('drawerName').innerHTML = ChatModule.getMe().DisplayName + '<br> <h4>'+ChatModule.getMe().Bio+'</h4>' ;
         }
         
     }
@@ -721,7 +721,7 @@ $.connection.hub.reconnected(function() {
        $('.menu-link').bigSlide({'easyClose':true});
          $('.menu-link').click(displayMyPic)
       infolog('The document is ready, we are going to join the room:')
-        infolog(chatModule.getChatName())  
+        infolog(ChatModule.getChatName())  
           
         
         initialiseConnection()
@@ -770,7 +770,7 @@ $.connection.hub.reconnected(function() {
 
          
          console.log($('#UserPage'))
-         var uir = chatModule.getUsersInRoom();
+         var uir = ChatModule.getUsersInRoom();
      for (var t=0;t<uir.length;t++){
        if(uir[t].Active){
         var td;
@@ -779,7 +779,7 @@ $.connection.hub.reconnected(function() {
                 td.addEventListener('click',function(){
                   
                   //get this usr
-                  user = chatModule.getUsersInRoom()[this.id.replace(/\D/g,'')];
+                  user = ChatModule.getUsersInRoom()[this.id.replace(/\D/g,'')];
                   //add back bar
                   userPageHtml = '<a onclick="restoreSideMenu()"><i style="color:white; font-size:20px;"class="fa fa-chevron-left"></i></a>' + this.id.replace(/\D/g,'');
                
@@ -809,7 +809,7 @@ $.connection.hub.reconnected(function() {
          }
            $("#updateButton").on('click',function(){
         console.log("update!")
-        var url = 'campusm://loadaek?toolbar=AEK7772&_action=chat&room='+chatModule.getChatName()+'&return=AEK6273' 
+        var url = 'campusm://loadaek?toolbar=AEK7772&_action=chat&room='+ChatModule.getChatName()+'&return=AEK6273' 
         var page;
        try {
            page = window.parent.CampusM.page;
@@ -931,7 +931,7 @@ $.connection.hub.reconnected(function() {
       console.log("Got this far")
       console.log(uid)
       var thisUser;
-      var array = chatModule.getUsersInRoom()
+      var array = ChatModule.getUsersInRoom()
       console.log(array)
       for(i=0;i<array.length;i++){
        if(array[i].UserID == uid){
@@ -959,7 +959,7 @@ $.connection.hub.reconnected(function() {
           var newSlideHtml;
         
          newSlideHtml= '<div id="myPicture" style="display:none;"class="img-circular" ></div> <a   onclick="restoreSideMenu()"><i style="color:white; font-size:20px;"class="fa fa-chevron-left fa-2x slideBack"></i></a><br><h2 id="UserPage" style="text-align:center; color:white;">Users In This Room</h2>';
-          var uir = chatModule.getUsersInRoom();
+          var uir = ChatModule.getUsersInRoom();
           for(i=0; i<uir.length;i++){
                 if(uir[i].Active){
                   
@@ -974,7 +974,7 @@ $.connection.hub.reconnected(function() {
         }
       newSliderPage(newSlideHtml) 
                   
-     var uir = chatModule.getUsersInRoom();
+     var uir = ChatModule.getUsersInRoom();
      for (var t=0;t<uir.length;t++){
        if(uir[t].Active){
         var td;
@@ -983,7 +983,7 @@ $.connection.hub.reconnected(function() {
                 td.addEventListener('click',function(){
                   
                   //get this usr
-                  user = chatModule.getUsersInRoom()[this.id.replace(/\D/g,'')];
+                  user = ChatModule.getUsersInRoom()[this.id.replace(/\D/g,'')];
                   //add back bar
                   userPageHtml = '<a  onclick="restoreSideMenu()"><i style="color:white; font-size:20px;"class="fa fa-chevron-left fa-2x slideBack"></i></a>' + this.id.replace(/\D/g,'');
                
@@ -1011,7 +1011,7 @@ $.connection.hub.reconnected(function() {
       
       $("#updateButton").on('click',function(){
         console.log("update!")
-        var url = 'campusm://loadaek?toolbar=AEK7772&_action=chat&room='+chatModule.getChatName()+'&return=AEK6273' 
+        var url = 'campusm://loadaek?toolbar=AEK7772&_action=chat&room='+ChatModule.getChatName()+'&return=AEK6273' 
         var page;
        try {
            page = window.parent.CampusM.page;

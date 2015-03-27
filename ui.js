@@ -8,7 +8,7 @@ var mainWindow = {
 }
 
 var slideOutMenu = {
-    navigation:$('');
+    pageHolder:$('#menuHolder');
     updateMyInfo:$('#updateButton');
     usersInRoom:$('#usersInRoomHolder');
     threads:$('#threadsMenuOption');

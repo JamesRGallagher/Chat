@@ -25,20 +25,6 @@ $("textarea").keyup(function(e) {
      var filter;
      var backstack = [];
      
-    function newSliderPage(html){
-         console.log('[NS] Creating new slider page...')
-         console.log('[NS] Current BackStack length: '+backstack.length)
-         current = document.getElementById('menuHolder').innerHTML;
-         console.log('[NS] Adding:'+ current)
-         console.log('[NS] Current BackStack length (2): '+backstack.length)
-         backstack.push(current);
-         console.log(backstack)
-         document.getElementById('menuHolder').innerHTML = '';
-         document.getElementById('menuHolder').innerHTML += html;   
-     } 
-      
-      
-      
       
     
     
@@ -797,7 +783,7 @@ $.connection.hub.reconnected(function() {
      
                   console.log(userPageHtml)
                    console.log("ABOUT TO MAKE A NEW PAGE!")
-                  newSliderPage(userPageHtml) 
+                  SlideOut.newSliderPage(userPageHtml) 
                     
                   document.getElementById('theirPicture'+user.UserID).style.backgroundImage = "url(data:image/gif;base64,"+user.Photo64 + ")";
                     
@@ -846,7 +832,7 @@ $.connection.hub.reconnected(function() {
               
           
             }
-        newSliderPage(threadPageHtml) 
+        SlideOut.newSliderPage(threadPageHtml) 
         
         });
    }
@@ -945,7 +931,7 @@ $.connection.hub.reconnected(function() {
       
      var html = '<a  onclick="restoreSideMenu()"><i style="color:white; font-size:20px;"class="fa fa-chevron-left fa-2x slideBack"></i></a> <h2 style="color:white;">Private Chat With ' +thisUser.DisplayName+'</h2>';
      html += '<iframe width="99%" height="70%" src="https://lancaster.ombiel.co.uk/campusm/home#aek/screen/6273/AEK6273/s4367/1427369499929"></iframe>';
-     newSliderPage(html)
+     SlideOut.newSliderPage(html)
       
     }
          
@@ -972,7 +958,7 @@ $.connection.hub.reconnected(function() {
              }
        
         }
-      newSliderPage(newSlideHtml) 
+      SlideOut.newSliderPage(newSlideHtml) 
                   
      var uir = ChatModule.getUsersInRoom();
      for (var t=0;t<uir.length;t++){
@@ -994,7 +980,7 @@ $.connection.hub.reconnected(function() {
                  // userPageHtml +='<iframe width="99%" scrolling="no"  height="65%" src="https://lancaster.ombiel.co.uk/campusm/home#aek/screen/6273/AEK6273/s4367/1427367005392"></iframe>'
                   console.log(userPageHtml)
                    console.log("ABOUT TO MAKE A NEW PAGE!")
-                  newSliderPage(userPageHtml) 
+                  SlideOut.newSliderPage(userPageHtml) 
                     
                   document.getElementById('theirPicture'+user.UserID).style.backgroundImage = "url(data:image/gif;base64,"+user.Photo64 + ")";
                     
@@ -1105,6 +1091,6 @@ $.connection.hub.reconnected(function() {
           
             }
 
-        newSliderPage(threadPageHtml) 
+        SlideOut.newSliderPage(threadPageHtml) 
         
         });

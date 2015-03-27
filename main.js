@@ -7,6 +7,7 @@ $("textarea").keyup(function(e) {
     //A global - holds the signalR chat instance
     var chat;
     var threads = [];
+    console.log('[VERSION 1]')
     function customURL(url) {
        var page;
        try {

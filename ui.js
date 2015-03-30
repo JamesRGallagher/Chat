@@ -13,10 +13,17 @@ var slideOutMenu = {
     updateMyInfo:$('#updateButton'),
     usersInRoom:$('#usersInRoomHolder'),
     threads:$('#threadsMenuOption')
-} return{
+} 
 
-		slideOutMenu:slideOutMenu,
-		mainWindow:mainWindow
+var getSlideOutMenu(){
+
+	return slideOutMenu;
+}
+
+return{
+
+		slideOutMenu:getSlideOutMenu()
+	
 
 }
 })();

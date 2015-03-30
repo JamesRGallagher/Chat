@@ -15,7 +15,7 @@ var slideOutMenu = {
     threads:$('#threadsMenuOption')
 };
 
-var getSlideOutMenu(){
+function getSlideOutMenu(){
 
 	return slideOutMenu;
 } return{

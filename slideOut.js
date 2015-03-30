@@ -6,8 +6,7 @@
  */
 var SlideOut = (function() {  
 	console.log('slider')
-	var slider = UI.slideOutMenu.menuHolder;  
-
+	var slider = UI.getSlideOutMenu().pageHolder;  
 	function newSliderPage(html){
 	    current = slider.html();
 	    backstack.push(current);

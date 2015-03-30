@@ -6,7 +6,7 @@
  */
 var SlideOut = (function() {  
 	console.log('slider')
-	var slider = slideOutMenu.menuHolder;  
+	var slider = UI.slideOutMenu.menuHolder;  
 
 	function newSliderPage(html){
 	    current = slider.html();

@@ -2,7 +2,7 @@
 * UI lib
 * Deals with the UI of the chat.
 */
-var SlideOut = (function() {  
+var UI = (function() {  
 var mainWindow = {
     messageEntry:$('#messageTextBox'),
     chatArea: $('#commentArea')

@@ -15,12 +15,11 @@ var slideOutMenu = {
     threads:$('#threadsMenuOption')
 };
 
-function getSlideOutMenu(){
-
+getSlideOutMenu = function(){
 	return slideOutMenu;
 } return{
 
-		slideOutMenu:getSlideOutMenu()
+		getSlideOutMenu:getSlideOutMenu;
 	
 
 }

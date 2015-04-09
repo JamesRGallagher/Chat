@@ -1092,6 +1092,7 @@ $.connection.hub.reconnected(function() {
               
           
             }
+          console.log("The Objects:\n")
          console.log(UI);
          console.log(SlideOut);   
 

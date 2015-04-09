@@ -294,7 +294,7 @@ $("textarea").keyup(function(e) {
 
         //Server calls when we are connected to the room
         chat.client.onRoomConnected = function (id, name, usersInRoom, messagesInRoom) {
-            alert("This Version")
+            alert("This Version 2")
             $(window).bind('beforeunload', function (e) {
                 chat.server.leaveRoom(ChatModule.getChatName())
             });

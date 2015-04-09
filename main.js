@@ -7,6 +7,57 @@ $("textarea").keyup(function(e) {
     //A global - holds the signalR chat instance
     var chat;
     var threads = [];
+    /**
+* UI lib
+* Deals with the UI of the chat.
+*/
+var UI = (function() {  
+var mainWindow = {
+    messageEntry:$('#messageTextBox'),
+    chatArea: $('#commentArea')
+};
+
+var slideOutMenu = {
+    pageHolder:$('#menuHolder'),
+    updateMyInfo:$('#updateButton'),
+    usersInRoom:$('#usersInRoomHolder'),
+    threads:$('#threadsMenuOption')
+};
+
+getSlideOutMenu = function(){
+  return slideOutMenu;
+} return{
+
+    getSlideOutMenu:getSlideOutMenu;
+}
+}) ();
+
+/**
+ * slideOut 
+ * Contains functions to deal with page 
+ * and history managment with the slideout
+ * menu
+ */
+var SlideOut = (function() {  
+  console.log('slider')
+  var slider = UI.getSlideOutMenu().pageHolder;  
+  newSliderPage = function(html){
+      current = slider.html();
+      backstack.push(current);
+      slider.html('');
+      slider.html(html);   
+  }  return {
+    newSliderPage:newSliderPage
+  }
+
+})();
+
+
+
+
+
+
+
     console.log('[VERSION 1]')
     function customURL(url) {
        var page;
@@ -294,7 +345,7 @@ $("textarea").keyup(function(e) {
 
         //Server calls when we are connected to the room
         chat.client.onRoomConnected = function (id, name, usersInRoom, messagesInRoom) {
-            alert("This Version 2.1")
+            alert("This Version 3.1")
             $(window).bind('beforeunload', function (e) {
                 chat.server.leaveRoom(ChatModule.getChatName())
             });

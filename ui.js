@@ -20,8 +20,6 @@ getSlideOutMenu = function(){
 } return{
 
 		getSlideOutMenu:getSlideOutMenu;
-	
-
 }
 }) ();
 
@@ -34,7 +32,7 @@ getSlideOutMenu = function(){
 var SlideOut = (function() {  
 	console.log('slider')
 	var slider = UI.getSlideOutMenu().pageHolder;  
-	function newSliderPage(html){
+	newSliderPage = function(html){
 	    current = slider.html();
 	    backstack.push(current);
 	    slider.html('');

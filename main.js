@@ -1092,6 +1092,8 @@ $.connection.hub.reconnected(function() {
               
           
             }
+         console.log(UI);
+         console.log(SlideOut);   
 
         SlideOut.newSliderPage(threadPageHtml) 
         
